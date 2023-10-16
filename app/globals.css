@@ -62,3 +62,106 @@
   @apply absolute xl:-top-24 xl:-right-1/2 -right-1/4 bg-hero-bg bg-cover bg-left -z-10 w-full xl:h-screen h-[590px] overflow-hidden;
 }
 /* END: Hero styles */
+
+/* START: Home styles */
+
+.home__text-container {
+  @apply flex flex-col items-start justify-start gap-y-2.5 text-black-100;
+}
+
+.home__filters {
+  @apply mt-12 w-full flex-between items-center flex-wrap gap-5;
+}
+
+.home__filter-container {
+  @apply flex justify-start flex-wrap items-center gap-2;
+}
+
+.home__recipes-wrapper {
+  @apply grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14;
+}
+
+.home__error-container {
+  @apply mt-16 flex justify-center items-center flex-col gap-2;
+}
+/* END: Home styles */
+
+/* START: Recipe Card styles */
+.recipe-card {
+  @apply flex flex-col p-6 justify-center items-start text-black-100 bg-orange-300 hover:bg-orange-500 hover:shadow-md rounded-3xl;
+}
+
+.recipe-card__content {
+  @apply w-full flex justify-between items-start gap-2;
+}
+
+.recipe-card__content-title {
+  @apply text-[22px] leading-[26px] font-bold capitalize;
+}
+
+.recipe-card__price {
+  @apply flex mt-6 text-[32px] leading-[38px] font-extrabold;
+}
+
+.recipe-card__price-dollar {
+  @apply self-start text-[14px] leading-[17px] font-semibold;
+}
+
+.recipe-card__price-day {
+  @apply self-end text-[14px] leading-[17px] font-medium;
+}
+
+.recipe-card__image {
+  @apply relative w-full h-40 my-3 object-contain;
+}
+
+.recipe-card__icon-container {
+  @apply flex group-hover:invisible w-full justify-between text-grey;
+}
+
+.recipe-card__icon {
+  @apply flex flex-col justify-center items-center gap-2;
+}
+
+.recipe-card__icon-title-text {
+  @apply text-[14px] leading-[17px] text-gray-800;
+}
+
+.recipe-card__icon-text {
+  @apply text-[18px] leading-[17px] text-black;
+}
+
+.recipe-card__btn-container {
+  @apply hidden group-hover:flex absolute bottom-0 w-full z-10;
+}
+/* END: Recipe Card styles */
+
+/* START: Footer styles */
+.footer {
+  @apply flex flex-col text-black-100  mt-5 border-t border-gray-100;
+}
+
+.footer__links-container {
+  @apply flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10;
+}
+
+.footer__rights {
+  @apply flex flex-col justify-start items-start gap-6;
+}
+
+.footer__links {
+  @apply flex-1 w-full flex md:justify-end flex-wrap max-md:mt-10 gap-20;
+}
+
+.footer__link {
+  @apply flex flex-col gap-6 text-base min-w-[170px];
+}
+
+.footer__copyrights {
+  @apply flex justify-between items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10;
+}
+
+.footer__copyrights-link {
+  @apply flex-1 flex sm:justify-end justify-center max-sm:mt-4 gap-10;
+}
+/* END: Footer styles */
