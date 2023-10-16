@@ -1,10 +1,18 @@
 "use client";
 import { RecipeProps } from "@/app/types";
-import { HeroSection, RecipeCard } from "@/app/components";
-import React, { useState } from "react";
+import { getRecipes } from "@/app/api/recipe";
+import { HeroSection, RecipeCard, SearchBar } from "@/app/components";
+import { useState } from "react";
 
 const HomePage = (allRecipes: any) => {
+  const initialRecipesData = allRecipes.allRecipes;
   const [recipeData, setRecipeData] = useState(allRecipes.allRecipes);
+
+  const handleDataReceived = async (params: string) => {
+    const incomingData = await getRecipes(params);
+    setRecipeData(incomingData ? incomingData.meals : []);
+  };
+
   return (
     <>
       <HeroSection />
@@ -12,6 +20,10 @@ const HomePage = (allRecipes: any) => {
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">Recipes List</h1>
           <p>Explore out recipes you might like</p>
+        </div>
+
+        <div className="home__filters">
+          <SearchBar onDataReceived={handleDataReceived} />
         </div>
 
         {recipeData ? (
