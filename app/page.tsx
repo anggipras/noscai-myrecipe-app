@@ -1,9 +1,10 @@
-import Image from 'next/image'
+import Image from "next/image";
+import HomePage from "./components/HomePage";
 
-export default function Home() {
+export default function AppData() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
+    <main className="overflow-hidden">
+      <HomePage />
     </main>
-  )
+  );
 }
