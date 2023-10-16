@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { RecipeProps } from "@/app/types";
 import Image from "next/image";
-import { CustomButton } from "@/app/components";
+import { CustomButton, Loading } from "@/app/components";
 import RightArrow from "@/public/assets/right-arrow.svg";
 
 interface RecipeCardProps {
@@ -11,7 +12,12 @@ interface RecipeCardProps {
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const { strMeal, strMealThumb, strCategory, strArea } = recipe;
-  const goToDetail = (params: string) => {};
+  const [showLoading, setShowLoading] = useState(false);
+  const router = useRouter();
+  const goToDetail = (params: string) => {
+    setShowLoading(true);
+    router.push(`/recipe-detail/${params}`);
+  };
   return (
     <div className="recipe-card group" onClick={() => goToDetail(strMeal)}>
       <div className="recipe-card__content">
@@ -49,6 +55,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
           />
         </div>
       </div>
+      <Loading isShowProps={showLoading} />
     </div>
   );
 };

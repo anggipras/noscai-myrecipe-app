@@ -5,7 +5,6 @@ import { HeroSection, RecipeCard, SearchBar } from "@/app/components";
 import { useState } from "react";
 
 const HomePage = (allRecipes: any) => {
-  const initialRecipesData = allRecipes.allRecipes;
   const [recipeData, setRecipeData] = useState(allRecipes.allRecipes);
 
   const handleDataReceived = async (params: string) => {
