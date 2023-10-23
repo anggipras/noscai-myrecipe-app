@@ -1,43 +1,21 @@
-"use client";
 import { getRecipes } from "@/app/api/recipe";
-import Loading from "@/app/components/Loading";
 import { RecipeProps } from "@/app/types";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
-const RecipeDetail = () => {
-  const [recipeData, setRecipeData] = useState<RecipeProps>();
-  const [showLoading, setShowLoading] = useState(false);
-  const [ingreAndMeasure, setIngreAndMeasure] = useState([
-    { ingredient: null, measure: null },
-  ]);
-  const params = useParams();
-
-  useEffect(() => {
-    setShowLoading(true);
-    const fetchRecipesData = async () => {
-      if (params) {
-        const getRecipesData = await getRecipes(params.id as string);
-        setRecipeData(getRecipesData.meals[0]);
-        const ingredients = Object.keys(getRecipesData.meals[0])
-          .filter(
-            (key) =>
-              key.startsWith("strIngredient") &&
-              getRecipesData.meals[0][key].trim() !== ""
-          )
-          .map((key) => ({
-            ingredient: getRecipesData.meals[0][key],
-            measure:
-              getRecipesData.meals[0][
-                key.replace("strIngredient", "strMeasure")
-              ],
-          }));
-        setIngreAndMeasure(ingredients);
-        setShowLoading(false);
-      }
-    };
-    fetchRecipesData();
-  }, []);
+const RecipeDetail = async ({ params }: { params: { id: string } }) => {
+  const getRecipesData = await getRecipes(params.id);
+  const recipeData: RecipeProps = getRecipesData.meals[0];
+  const ingredients = Object.keys(getRecipesData.meals[0])
+    .filter(
+      (key) =>
+        key.startsWith("strIngredient") &&
+        getRecipesData.meals[0][key].trim() !== ""
+    )
+    .map((key) => ({
+      ingredient: getRecipesData.meals[0][key],
+      measure:
+        getRecipesData.meals[0][key.replace("strIngredient", "strMeasure")],
+    }));
+  let ingreAndMeasure = ingredients;
 
   return (
     <main className="overflow-hidden">
@@ -46,7 +24,7 @@ const RecipeDetail = () => {
           <div className="mx-auto my-auto w-[50%] max-md:w-[100%]">
             <div className="transition-all duration-500 hover:scale-110">
               <img
-                src={recipeData ? recipeData.strMealThumb : ""}
+                src={recipeData.strMealThumb}
                 alt=""
                 className="rounded-3xl mx-auto w-[50%]"
               />
@@ -55,7 +33,7 @@ const RecipeDetail = () => {
 
           <div className="w-[50%] max-md:w-[100%] max-md:mt-8">
             <p className="pb-4 text-4xl border-b-black border-b-2">
-              {recipeData ? recipeData.strMeal : null}
+              {recipeData.strMeal}
             </p>
             <p className="mt-4 italic">Ingredients:</p>
             <ul className="mt-2 ml-4 p-0 list-disc">
@@ -70,13 +48,10 @@ const RecipeDetail = () => {
                 : null}
             </ul>
             <p className="mt-8 italic">Instructions:</p>
-            <div className="mt-2 text-base">
-              {recipeData ? recipeData.strInstructions : null}
-            </div>
+            <div className="mt-2 text-base">{recipeData.strInstructions}</div>
           </div>
         </div>
       </div>
-      <Loading isShowProps={showLoading} />
     </main>
   );
 };

@@ -1,15 +1,18 @@
 "use client";
 import { RecipeProps } from "@/app/types";
 import { getRecipes } from "@/app/api/recipe";
-import { HeroSection, RecipeCard, SearchBar } from "@/app/components";
+import { HeroSection, RecipeCard, SearchBar, Loading } from "@/app/components";
 import { useState } from "react";
 
 const HomePage = (allRecipes: any) => {
   const [recipeData, setRecipeData] = useState(allRecipes.allRecipes);
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleDataReceived = async (params: string) => {
+    setShowLoading(true);
     const incomingData = await getRecipes(params);
     setRecipeData(incomingData ? incomingData.meals : []);
+    setShowLoading(false);
   };
 
   return (
@@ -41,6 +44,7 @@ const HomePage = (allRecipes: any) => {
           </div>
         )}
       </div>
+      <Loading isShowProps={showLoading} />
     </>
   );
 };
